@@ -8,7 +8,7 @@ mongoose.connect("mongodb://localhost:27017/Task-Planner")
 })
 
 
-const newSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required:true
@@ -19,6 +19,6 @@ const newSchema = new mongoose.Schema({
     }
 })
 
-const collection = mongoose.model("collection", newSchema)
+const User = mongoose.model("User", UserSchema)
+module.exports = User
 
-module.exports=collection
