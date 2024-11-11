@@ -5,17 +5,17 @@ mongoose.connect("mongodb://localhost:27017/Task-Planner")
     })
     .catch(() => {
         console.log('failed');
-})
+    })
 
 
 const TaskSchema = new mongoose.Schema({
     User_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref: 'User'
     },
     task: {
         type: String,
-        
+
     }
 })
 

@@ -15,22 +15,22 @@ app.use(cors())
 
 app.get("/", cors(), (req, res) => {
     res.send("Server is running");
-    
+
 })
 
 
 app.post("/", async (req, res) => { //Login API
 
     const { email, password } = req.body;
-    
+
     try {
-        const user = await User.findOne({ email: email }) 
-        
+        const user = await User.findOne({ email: email })
+
         if (user) {
             res.json({ status: "exist", userId: user._id })// change made here
         }
         else {
-            res.json({status: "Does not exist"})
+            res.json({ status: "Does not exist" })
         }
     }
     catch {
@@ -39,25 +39,25 @@ app.post("/", async (req, res) => { //Login API
 })
 
 app.post("/signup", async (req, res) => { //SignUp API
-        
+
     const { email, password } = req.body
-    
+
     try {
-        const user = await User.findOne({ email: email }) 
-        
+        const user = await User.findOne({ email: email })
+
         if (user) {
             res.json({ status: "exist" });// change made here
         }
         else {
-            const newUser = await User.create({email:email, password:password })
-            res.json({status: "Does not exist", userId: newUser._id});//change made here
+            const newUser = await User.create({ email: email, password: password })
+            res.json({ status: "Does not exist", userId: newUser._id });//change made here
         }
     }
     catch (error) {
         console.log(error)
         res.status(500).json("Internal Server Error");
     }
-    })
+})
 
 app.post("/AddTask", async (req, res) => { //Add-Task API
     const { task, User_id } = req.body;
@@ -79,7 +79,7 @@ app.post("/AddTask", async (req, res) => { //Add-Task API
 
 app.get("/AddTask/get-task", async (req, res) => { //Task List API 
     const userId = req.headers["user-id"];
-    
+
     if (!userId) {
         res.json({ message: "User Id is required in headers" });
     }
@@ -136,7 +136,7 @@ app.put("/AddTask/:id", async (req, res) => {
         res.json(updatedTask);
     } catch (error) {
         console.error(error);
-        res.json({message: 'Failed to update task'});
+        res.json({ message: 'Failed to update task' });
     }
 })
 
