@@ -14,7 +14,8 @@ const TaskSchema = new mongoose.Schema({
         ref:'User'
     },
     task: {
-        type: String
+        type: String,
+        
     }
 })
 
