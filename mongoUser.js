@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://localhost:27017/Task-Planner")
+mongoose.connect("mongodb+srv://ankitahota3264:QEtTNQIA05kHrBca@task-planner.d836z.mongodb.net/?retryWrites=true&w=majority&appName=Task-Planner")
     .then(() => {
         console.log("mongodb connected");
     })

@@ -13,10 +13,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-app.get("/", cors(), (req, res) => {
-    res.send("Server is running");
 
-})
+app.use(cors({
+  origin: 'https://tasky-planner.netlify.app/',
+  methods: 'GET,POST,OPTIONS,PUT,DELETE', 
+  allowedHeaders: 'Content-Type,Authorization',
+}));
 
 
 app.post("/", async (req, res) => { //Login API
@@ -81,7 +83,7 @@ app.get("/AddTask/get-task", async (req, res) => { //Task List API
     const userId = req.headers["user-id"];
 
     if (!userId) {
-        res.json({ message: "User Id is required in headers" });
+       return res.json({ message: "User Id is required in headers" });
     }
     try {
         const tasks = await Task.find({ User_id: userId });
@@ -142,5 +144,7 @@ app.put("/AddTask/:id", async (req, res) => {
 
 
 
-app.listen(8000,
-    console.log("Server Started On PORT 8000"));
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
