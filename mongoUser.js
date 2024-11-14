@@ -1,7 +1,5 @@
-// const mongoose = require("mongoose")
-import mongoose from 'mongoose'
-mongoose.connect("mongodb+srv://ankitahota3264:TaskaPlan2024mmSecure@task-planner.d836z.mongodb.net/?retryWrites=true&w=majority&appName=Task-Planner")
-    //mongodb+srv://ankitahota3264:TaskaPlan2024mmSecure@task-planner.d836z.mongodb.net/?retryWrites=true&w=majority&appName=Task-Planner
+const mongoose = require("mongoose")
+mongoose.connect("mongodb+srv://ankitahota3264:ankita123@cluster0.d836z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
     .then(() => {
         console.log("mongodb connected");
     })
@@ -22,6 +20,5 @@ const UserSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model("User", UserSchema)
-// module.exports = User
-export default User
+module.exports = User
 

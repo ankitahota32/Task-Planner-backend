@@ -17,18 +17,6 @@ app.get("/", cors(), (req, res) => {
     res.send("Server is running");
 })
 
-
-// app.use(cors({
-//   origin: 'https://tasky-planner.netlify.app/',
-//   methods: 'GET,POST,OPTIONS,PUT,DELETE', 
-//   allowedHeaders: 'Content-Type,Authorization',
-// }));
-
-// app.get("/", (req, res) => {
-//     res.send("Welcome to Task Planner API!");
-// });
-
-
 app.post("/", async (req, res) => { //Login API
 
     const { email, password } = req.body;
@@ -60,7 +48,7 @@ app.post("/signup", async (req, res) => { //SignUp API
         }
         else {
             const newUser = await User.create({ email: email, password: password })
-            res.json({ status: "Does not exist", userId: newUser._id });//change made here
+            res.json({ status: "User created successfully", userId: newUser._id });//change made here
         }
     }
     catch (error) {
@@ -117,47 +105,61 @@ app.delete("/AddTask/:id", async (req, res) => {// Delete API
     }
 });
 
-app.put("/AddTask/:id", async (req, res) => { //Update API
+// app.put("/AddTask/:id", async (req, res) => { //Update API
+//     try {
+//         const editTask = await Task.findByIdAndUpdate(
+//             req.params.id,
+//             { task: req.body.task },
+//             { new: true }
+//         );
+//         res.json(editTask);
+//     } catch (error) {
+//         res.json({ message: error.message });
+//     }
+// });
+
+// app.put("/AddTask/:id", async (req, res) => {
+//     const { id } = req.params;
+//     const { task } = req.body;
+//     try {
+//         const updatedTask = await Task.findByIdAndUpdate(
+//             id,
+//             { task },
+//             { new: true }
+//         );
+
+//         if (!updatedTask) {
+//             return res.json({ message: 'Task not found' });
+//         }
+//         res.json(updatedTask);
+//     } catch (error) {
+//         console.error(error);
+//         res.json({ message: 'Failed to update task' });
+//     }
+// })
+
+app.put("/AddTask/:id", async (req, res) => { // Update Task API
+    const { task } = req.body;
+
     try {
         const editTask = await Task.findByIdAndUpdate(
             req.params.id,
-            { task: req.body.task },
-            { new: true }
-        );
-        res.json(editTask);
-    } catch (error) {
-        res.json({ message: error.message });
-    }
-});
-
-app.put("/AddTask/:id", async (req, res) => {
-    const { id } = req.params;
-    const { task } = req.body;
-    try {
-        const updatedTask = await Task.findByIdAndUpdate(
-            id,
             { task },
             { new: true }
         );
 
-        if (!updatedTask) {
-            return res.json({ message: 'Task not found' });
+        if (!editTask) {
+            return res.status(404).json({ message: 'Task not found' });
         }
-        res.json(updatedTask);
+        res.status(200).json(editTask);
     } catch (error) {
         console.error(error);
-        res.json({ message: 'Failed to update task' });
+        res.status(500).json({ message: 'Failed to update task' });
     }
-})
+});
 
 
-
-
-// const PORT = process.env.PORT || 8000;
-// app.listen(PORT, '0.0.0.0', () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
-
-app.listen(8000, () => {
-    console.log("Server is running")
-})
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+});
