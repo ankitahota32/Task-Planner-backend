@@ -13,12 +13,20 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
+app.get("/", cors(), (req, res) => {
+    res.send("Server is running");
+})
 
-app.use(cors({
-  origin: 'https://tasky-planner.netlify.app/',
-  methods: 'GET,POST,OPTIONS,PUT,DELETE', 
-  allowedHeaders: 'Content-Type,Authorization',
-}));
+
+// app.use(cors({
+//   origin: 'https://tasky-planner.netlify.app/',
+//   methods: 'GET,POST,OPTIONS,PUT,DELETE', 
+//   allowedHeaders: 'Content-Type,Authorization',
+// }));
+
+// app.get("/", (req, res) => {
+//     res.send("Welcome to Task Planner API!");
+// });
 
 
 app.post("/", async (req, res) => { //Login API
@@ -144,7 +152,12 @@ app.put("/AddTask/:id", async (req, res) => {
 
 
 
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+// const PORT = process.env.PORT || 8000;
+// app.listen(PORT, '0.0.0.0', () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
+
+app.listen(8000, () => {
+    console.log("Server is running")
+})
